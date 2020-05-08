@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Currency Converter</title>
+  <link rel="stylesheet" href="./base.css">
+  <link rel="stylesheet" href="./money.css">
+</head>
+
+<body>
+  <!-- The app class can be used as a kind of entry point for the whole application -->
+  <!-- Modules imported from starting point can be scoped to this wrapper div -->
+  <div class="app">
+    <form>
+      <input type="number" name="from_amount">
+      <select name="from_currency">
+        <option value="">Select a Currency</option>
+      </select>
+      <p>in</p>
+      <select name="to_currency">
+        <option value="">Select a Currency</option>
+      </select>
+      <p>is</p>
+      <p class="to_amount">$0</p>
+    </form>
+  </div>
+  <script src="./money.js" type="module"></script>
+</body>
+
+</html>

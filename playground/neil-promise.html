@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function climbTree(tree) {
+      return new Promise(function (resolve, reject) {
+        setTimeout(function () {
+          if (Math.random() > 0.1) {
+            resolve(`I climbed the tree ${tree}`);
+          } else {
+            reject(new Error(`I fell out of tree ${tree}`));
+          }
+        }, 2000);
+      });
+    }
+
+    // const climb = climbTree('🌳');
+
+    climb
+      .then(function (climbDescription) {
+        console.log(`the promise resolved and gave us: ${climbDescription}`);
+        return climbTree(`🌴`);
+      })
+      .then(function (climbDescription) {
+        console.log(`the promise resolved and gave us: ${climbDescription}`);
+        return climbTree(`🎍`);
+      })
+      .then(function (climbDescription) {
+        console.log(`the promise resolved and gave us: ${climbDescription}`);
+      })
+      .catch(function (climbDescription) {
+        console.log(`the promise rejected and gave us: ${climbDescription}`);
+      });
+
+    const megaPromise = Promise.race([
+      climbTree('🌿'),
+      climbTree('🌴'),
+      climbTree('🌳'),
+    ]);
+
+    megaPromise.then(function (first) {
+      console.log(first);
+    });
+  </script>
+</body>
+
+</html>

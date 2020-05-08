@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <button class="one">Click me 1</button>
+  <button class="two">Click me 2</button>
+
+  <script>
+    function tellMe() {
+      console.log(this);
+
+      setTimeout(() => {
+        console.log(this);
+      }, 1000);
+    }
+
+    const button = document.querySelector('.one');
+    const button2 = document.querySelector('.two');
+
+    button.addEventListener('click', tellMe);
+    button2.addEventListener('click', tellMe);
+  </script>
+</body>
+
+</html>

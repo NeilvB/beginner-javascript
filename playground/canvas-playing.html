@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../base.css">
+</head>
+
+<body>
+  <canvas height="800" width="1200" id="neil"></canvas>
+
+  <script>
+    const canvas = document.querySelector('#neil');
+    const canvasContext = canvas.getContext('2d');
+
+    // canvasContext.lineJoin = 'round';
+    canvasContext.lineCap = 'round';
+    canvasContext.lineWidth = 10;
+
+    canvasContext.beginPath(); // start the drawing
+    canvasContext.moveTo(100, 100);
+    canvasContext.lineTo(100, 100); // to make an initial mark in place, we make a "line" here
+
+    canvasContext.moveTo(300, 100);
+    canvasContext.lineTo(300, 100); // to make an initial mark in place, we make a "line" here
+
+    canvasContext.moveTo(300, 200);
+
+    const y = 200;
+    const x = 200;
+
+    function degreesToRadians(degrees) {
+      return (degrees * Math.PI) / 180;
+    }
+
+    canvasContext.arc(x, y, 100, degreesToRadians(0), degreesToRadians(180));
+
+    canvasContext.stroke();
+  </script>
+</body>
+
+</html>

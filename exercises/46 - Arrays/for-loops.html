@@ -17,8 +17,8 @@
     const wes = {
       name: 'wes',
       age: 100,
-      cool: true
-    }
+      cool: true,
+    };
 
     // For
     // for (let i = 100; i <= 120; i += 2) {
@@ -36,18 +36,18 @@
     }
 
     for (const number of numbers) {
-      console.log(number)
+      console.log(number);
     }
     // For in - used for looping over keys of an object
     for (const prop in wes) {
-      console.log(prop)
+      console.log(prop);
     }
 
     const baseHumanStats = {
       feet: 2,
       arms: 2,
       eyes: 2,
-      head: 1
+      head: 1,
     };
 
     function Human(name) {
@@ -58,7 +58,7 @@
 
     const wes2 = new Human('wes');
 
-    console.log(Object.entries(wes2))
+    console.log(Object.entries(wes2));
 
     for (const prop in wes2) {
       console.log(prop);
@@ -74,7 +74,6 @@
         cool = false;
       }
     }
-
   </script>
 </body>
 

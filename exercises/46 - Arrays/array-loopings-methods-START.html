@@ -12,7 +12,19 @@
 
 <body>
   <script>
-    const toppings = ['Mushrooms ', 'Tomatoes', 'Eggs', 'Chili', 'Lettuce', 'Avocado', 'Chiles', 'Bacon', 'Pickles', 'Onions', 'Cheese'];
+    const toppings = [
+      'Mushrooms ',
+      'Tomatoes',
+      'Eggs',
+      'Chili',
+      'Lettuce',
+      'Avocado',
+      'Chiles',
+      'Bacon',
+      'Pickles',
+      'Onions',
+      'Cheese',
+    ];
 
     const students = [
       {
@@ -67,32 +79,31 @@
         birthday: 'April 22, 1993',
         names: {
           first: 'Keith',
-          last: 'Buckley'
-        }
+          last: 'Buckley',
+        },
       },
       {
         birthday: 'January 3, 1975',
         names: {
           first: 'Larry',
-          last: 'Heep'
-        }
+          last: 'Heep',
+        },
       },
       {
         birthday: 'February 12, 1944',
         names: {
           first: 'Linda',
-          last: 'Bermeer'
-        }
-      }
+          last: 'Bermeer',
+        },
+      },
     ];
-
 
     const buns = ['egg', 'wonder', 'brioche'];
 
     const meats = {
       beyond: 10,
       beef: 5,
-      pork: 7
+      pork: 7,
     };
 
     const prices = {
@@ -124,11 +135,52 @@
       { type: 'pants', price: 123 },
     ];
 
-
     /*
       Looping Methods
     */
 
+    function addArms(face) {
+      return `👋 ${face} 👋`;
+    }
+
+    // console.log(faces.map(addArms));
+
+    function currentAgeInYears(birthdateString) {
+      const birthdayMilliseconds = new Date(birthdateString).getTime();
+      const ageMilliseconds = Date.now() - birthdayMilliseconds;
+
+      return Math.floor(ageMilliseconds / 1000 / 60 / 60 / 24 / 365);
+    }
+
+    const cleanPeople = people.map(function (person) {
+      return {
+        age: currentAgeInYears(person.birthday),
+        name: `${person.names.first} ${person.names.last}`,
+      };
+    });
+
+    function findByProperty(name, value) {
+      return student => student[name] === value;
+    }
+
+    let stu = students.find(findByProperty('id', '54cb'));
+    console.log(stu);
+
+    stu = students.find(findByProperty('first_name', 'Brett'));
+    console.log(stu);
+
+    stu = students.find(findByProperty('last_name', 'Aizikowitz'));
+    console.log(stu);
+
+    function reduceInventory(accumulator, inventoryItem) {
+      accumulator[inventoryItem.type] = (accumulator[inventoryItem.type] += 1) || 1;
+
+      return accumulator;
+    }
+
+    const summary = inventory.reduce(reduceInventory, {});
+
+    console.table(summary);
   </script>
 </body>
 

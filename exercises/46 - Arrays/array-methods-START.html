@@ -12,14 +12,26 @@
 
 <body>
   <script>
-    const toppings = ['Mushrooms ', 'Tomatoes', 'Eggs', 'Chili', 'Lettuce', 'Avocado', 'Chiles', 'Bacon', 'Pickles', 'Onions', 'Cheese'];
+    const toppings = [
+      'Mushrooms ',
+      'Tomatoes',
+      'Eggs',
+      'Chili',
+      'Lettuce',
+      'Avocado',
+      'Chiles',
+      'Bacon',
+      'Pickles',
+      'Onions',
+      'Cheese',
+    ];
 
     const buns = ['egg', 'wonder', 'brioche'];
 
     const meats = {
       beyond: 10,
       beef: 5,
-      pork: 7
+      pork: 7,
     };
 
     const prices = {
@@ -39,7 +51,6 @@
       { comment: 'I DONT LIKE BURGERS', rating: 1 },
     ];
 
-
     /*
       Static Methods
     */
@@ -48,31 +59,85 @@
 
     // Make a function that creates a range from x to y with Array.from();
 
+    function range(x, y) {
+      return Array.from({ length: y - x }, (_, i) => i + x);
+    }
+
     // Check if the last array you created is really an array with Array.isArray();
 
+    const myArr = range(3, 5);
+
+    // if (Array.isArray(myArr)) {
+    //   console.log("It's an array");
+    // }
+
     // Take the meats object and make three arrays with Object.entries(), Object.keys, Object.values()
+
+    const meatEntries = Object.entries(meats);
+    const meatKeys = Object.keys(meats);
+    const meatValues = Object.values(meats);
 
     /*
       Instance Methods
     */
 
     // Display all bun types with " or " - use join()
+    // console.log(buns.join(' or '));
 
     // We have a string "hot dogs,hamburgers,sausages,corn" - use split() to turn it into a string
 
+    // console.log('hot dogs,hamburgers,sausages,corn'.split(','));
+
     // take the last item off toppings with pop()
+
+    // console.log(toppings);
+
+    const lastTopping = toppings.pop();
+
     // add it back with push()
-    // take the first item off toppings with shift()
-    // add it back in with unshift()
+    toppings.push(lastTopping);
+
+    // // take the first item off toppings with shift()
+
+    const firstTopping = toppings.shift();
+
+    // // add it back in with unshift()
+
+    toppings.unshift(firstTopping);
+
     // Do the last four,but immutable (with spreads and new variables)
 
+    const withoutLast = toppings.slice(0, toppings.length - 1);
+    const withLastAgain = [...withoutLast, toppings[toppings.length - 1]];
+
+    const withoutFirst = toppings.slice(1);
+    const withFirstAgain = [toppings[0], ...withoutFirst];
 
     // Make a copy of the toppings array with slice()
+
+    const sliceCopy = toppings.slice(0);
+
     // Make a copy of the toppings array with a spread
+
+    const spreadCopy = [...toppings];
+
     // take out items 3 to 5 of your new toppings array with splice()
+
+    spreadCopy.splice(3, 2);
+
     // find the index of Avocado with indexOf() / lastIndexOf()
+    const avocadoIndex = spreadCopy.indexOf('Avocado');
+
     // Check if hot sauce is in the toppings with includes()
+
+    const hasHotSauce = spreadCopy.includes('hot sauce');
+
+    if (!hasHotSauce) spreadCopy.push('hot sauce');
+
     // add it if it's not
+
+    toppings.reverse();
+
     // flip those toppings around with reverse()
 
     /*
@@ -80,20 +145,47 @@
     */
 
     // find the first rating that talks about a burger with find()
+
+    const burgerFeedback = feedback.find(f => f.comment.includes('burger'));
+    console.log(burgerFeedback.rating);
+
     // find all ratings that are above 2 with filter()
+
+    console.log(feedback.filter(f => f.rating > 2));
+
     // find all ratings that talk about a burger with filter()
+    console.log(feedback.filter(f => f.comment.includes('burger')));
+
     // Remove the one star rating however you like!
 
+    const editedFeedback = feedback.filter(val => val.rating > 1);
+
     // check if there is at least 5 of one type of meat with some()
+
+    Object.values(meats).some(v => v >= 5);
+
     // make sure we have at least 3 of every meat with every()
+
+    Object.values(meats).every(count => count >= 3);
+
     // sort the toppings alphabetically with sort()
+
+    toppings.sort();
+
     // sort the order totals from most expensive to least with .sort()
+
+    orderTotals.sort((a, b) => {
+      if (a === b) return 0;
+      return a > b ? -1 : 1;
+    });
+
     // Sort the prices with sort()
+
+    Object.values(prices).sort();
 
     /*
       Looping Methods (next)
     */
-
   </script>
 </body>
 

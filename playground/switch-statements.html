@@ -6,12 +6,72 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title></title>
   <link rel="stylesheet" href="../base.css">
+  <style>
+    .turt {
+      --x: 0;
+      --y: 0;
+      --rotateX: 0;
+      --rotateY: 0;
+      transform: translateX(var(--x)) translateY(var(--y)) rotateY(var(--rotateX)) rotate(var(--rotateY));
+      transition: 0.3s;
+    }
+  </style>
 </head>
 
 
 <body>
   <img width="200" src="./turtle.png" alt="Turt" class="turt">
 
+  <script>
+    const turtle = document.querySelector('.turt');
+    let x = 0;
+    let y = 0;
+    let rotateX = 0;
+    let rotateY = 0;
+    const speed = 50;
+
+    document.addEventListener('keydown', function (e) {
+      if (!e.key.includes('Arrow')) {
+        return;
+      }
+
+      switch (e.key) {
+        case 'ArrowUp':
+          y -= 1;
+          rotateY = -90;
+          break;
+        case 'ArrowRight':
+          rotateX = 0;
+          rotateY = 0;
+          x += 1;
+          break;
+        case 'ArrowDown':
+          y += 1;
+          rotateY = 90;
+          break;
+        case 'ArrowLeft':
+          x -= 1;
+          rotateX = 180;
+          rotateY = 0;
+          break;
+        default:
+          console.log('Unexpected key');
+          break;
+      }
+
+      turtle.setAttribute(
+        'style',
+        `
+          --x: ${x * speed}px;
+          --y: ${y * speed}px;
+          --rotateX: ${rotateX}deg;
+          --rotateY: ${rotateY}deg;
+        `
+      );
+    });
+  </script>
 </body>
+
+
 
 </html>

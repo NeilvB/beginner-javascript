@@ -3,21 +3,19 @@ const modalOuter = document.querySelector('.modal-outer');
 const modalInner = document.querySelector('.modal-inner');
 
 function handleCardButtonClick(event) {
-  const button = event.currentTarget;
+  // Make the modal window appear by setting a class
+
+  const button = event.target;
   const card = button.closest('.card');
-  // Grab the image src
-  const imgSrc = card.querySelector('img').src;
+
+  const imageSrc = card.querySelector('img').src;
   const desc = card.dataset.description;
-  const name = card.querySelector('h2').textContent;
-  // populate the modal with the new info
+
   modalInner.innerHTML = `
-    <img width="600" height="600" src="${imgSrc.replace(
-      '200',
-      '600'
-    )}" alt="${name}"/>
+    <img src="${imageSrc}">
     <p>${desc}</p>
   `;
-  // show the modal
+
   modalOuter.classList.add('open');
 }
 
@@ -30,15 +28,20 @@ function closeModal() {
 }
 
 modalOuter.addEventListener('click', function(event) {
+  // if (event.target === modalOuter) {
+  //   // this is a bit aggressive as it means it's difficult to add external things to click on e.g. buttons in the outside
+  //   closeModal();
+  // }
+  // Make the modal window disappear by setting a class
+
   const isOutside = !event.target.closest('.modal-inner');
   if (isOutside) {
     closeModal();
   }
 });
 
-window.addEventListener('keydown', event => {
-  console.log(event);
-  if (event.key === 'Escape') {
+window.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
     closeModal();
   }
 });

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>APIs</title>
+</head>
+
+<body>
+  <script>
+    function handleError(err) {
+      console.log('oops');
+      console.log(err);
+    }
+
+    const base_endpoint = 'https://api.github.com';
+
+    // Async functions always return promises implicitly
+    async function logGithubJSON(username) {
+      const user_endpoint = `${base_endpoint}/users/${username}`;
+      const response = await fetch(user_endpoint);
+      const data = await response.json();
+      console.log(data.login);
+      console.log(data.name);
+      console.log(data.public_repos);
+    }
+
+    // Promise - style error catching
+    logGithubJSON('neilvb').catch(handleError);
+  </script>
+</body>
+
+</html>

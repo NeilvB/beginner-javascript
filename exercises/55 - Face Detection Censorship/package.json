@@ -2,7 +2,7 @@
   "name": "pixelated-face",
   "version": "1.0.0",
   "description": "",
-  "main": "pixelated-face.js",
+  "main": "pixelated-face-neil.js",
   "scripts": {
     "start": "parcel face.html"
   },

@@ -1,0 +1,45 @@
+const video = document.querySelector('.webcam');
+const canvas = document.querySelector('.video');
+const ctx = canvas.getContext('2d');
+ctx.strokeStyle = 'yellow';
+ctx.lineWidth = 5;
+const faceCanvas = document.querySelector('.face');
+const faceCtx = faceCanvas.getContext('2d');
+faceCtx.strokeStyle = 'yellow';
+faceCtx.lineWidth = 5;
+const faceDetector = new FaceDetector({
+  fastMode: true
+});
+
+async function populateVideo() {
+  const stream = await navigator.mediaDevices.getUserMedia({
+    video: {
+      width: 1280,
+      height: 720
+    }
+  });
+  video.srcObject = stream;
+  await video.play();
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  faceCanvas.width = video.videoWidth;
+  faceCanvas.height = video.videoHeight;
+}
+
+async function detect() {
+  const faces = await faceDetector.detect(video);
+  faces.forEach(drawFace);
+  requestAnimationFrame(detect); // recursive call
+}
+
+function drawFace(face) {
+  const {
+    width,
+    height,
+    top,
+    left
+  } = face.boundingBox;
+  faceCtx.strokeRect(left, top, width, height);
+}
+
+populateVideo().then(detect);

@@ -1,4 +1,5 @@
 function Gallery(gallery) {
+  // "Check" code to catch issues early with using this function
   if (!gallery) {
     throw new Error('No Gallery Found!');
   }

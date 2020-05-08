@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../base.css">
+</head>
+
+<body>
+  <style>
+    .go {
+      margin: 5rem;
+      background: white;
+      padding: 5rem;
+      width: 25rem;
+    }
+  </style>
+  <div class="go">Click Me</div>
+  <script>
+    const myDiv = document.querySelector('.go');
+
+    // Simple timeout promise for practicing timeouts
+    function timeoutPromise(timeMs) {
+      return new Promise(function (resolve, _reject) {
+        window.setTimeout(function () {
+          resolve();
+        }, timeMs);
+      });
+    }
+
+    myDiv.addEventListener('click', function (e) {
+      const elem = e.target;
+
+      elem.innerText = 'Go';
+
+      timeoutPromise(2000)
+        .then(function () {
+          elem.style.borderRadius = '10rem';
+          return timeoutPromise(500);
+        })
+        .then(function () {
+          elem.style.backgroundColor = 'red';
+          return timeoutPromise(250);
+        })
+        .then(function () {
+          elem.style.borderRadius = 0;
+          return timeoutPromise(300);
+        })
+        .then(function () {
+          elem.style.backgroundColor = 'purple';
+          return timeoutPromise(500);
+        })
+        .then(function () {
+          elem.style.transition = 'opacity 0.5s ease';
+          elem.style.opacity = 0;
+        })
+        .catch(function () {
+          console.log('problem with timeouts, I guess');
+        });
+    });
+
+    // window.setTimeout(function () {
+    //   el.style.borderRadius = '10rem';
+
+    //   window.setTimeout(function () {
+    //     el.style.backgroundColor = 'red';
+
+    //     window.setTimeout(function () {
+    //       el.style.borderRadius = 0;
+
+    //       window.setTimeout(function () {
+    //         el.style.backgroundColor = 'purple';
+
+    //         window.setTimeout(function () {
+    //           el.style.transition = 'opacity 0.5s ease';
+    //           el.style.opacity = 0;
+    //         }, 500);
+    //       }, 300);
+    //     }, 250);
+    //   }, 500);
+    // });
+  </script>
+</body>
+
+</html>

@@ -33,10 +33,16 @@ const currencies = {
   EUR: 'Euro',
 };
 
+const conversionForm = document.querySelector('form');
+const fromAmountInput = document.querySelector('input[name="from_amount"]');
+const toAmountElem = document.querySelector('.to_amount');
+
 const fromCurrencySelect = document.querySelector('[name="from_currency"]');
 const toCurrencySelect = document.querySelector('[name="to_currency"]');
 
 const baseConversionUrl = 'https://api.exchangeratesapi.io/latest';
+
+const baseRates = {};
 
 const orderedCurrenciesEntries = Object.entries(currencies).sort((a, b) => {
   if (a[1] < b[1]) {
@@ -50,11 +56,18 @@ const orderedCurrenciesEntries = Object.entries(currencies).sort((a, b) => {
 
 const currencyOptions = orderedCurrenciesEntries.map(
   ([acronym, fullName]) => `
-    <option name="${acronym}">
+    <option value="${acronym}">
       ${fullName}
     </option>
   `
 );
+
+function formatCurrency(currency, amount) {
+  return Intl.NumberFormat('en-GB', {
+    style: 'currency',
+    currency,
+  }).format(amount);
+}
 
 async function fetchCurrencyConversionData(baseCurrencyCode) {
   const fullConversionUrl = `${baseConversionUrl}?base=${baseCurrencyCode}`;
@@ -65,26 +78,39 @@ async function fetchCurrencyConversionData(baseCurrencyCode) {
   return conversionData;
 }
 
-// {
-//   "rates": {
-//       "CAD": 1.4074932765,
-//   },
-//   "base": "USD",
-//   "date": "2020-05-07"
-// }
-
 async function convertAmountForCurrencies(
   baseCurrencyAmount,
   baseCurrencyCode,
   targetCurrencyCode
 ) {
-  const conversionData = await fetchCurrencyConversionData(baseCurrencyCode);
-  const conversionRate = conversionData.rates[targetCurrencyCode];
+  if (!baseRates[baseCurrencyCode]) {
+    // We need to fetch our rates and store them in the cache
+    const conversionData = await fetchCurrencyConversionData(baseCurrencyCode);
+    baseRates[baseCurrencyCode] = conversionData.rates;
+  }
 
-  return baseCurrencyAmount * conversionRate;
+  return baseCurrencyAmount * baseRates[baseCurrencyCode][targetCurrencyCode];
 }
 
 fromCurrencySelect.insertAdjacentHTML('beforeend', currencyOptions.join(''));
 toCurrencySelect.insertAdjacentHTML('beforeend', currencyOptions.join(''));
 
-// toCurrencySelect.addEventListener('input');
+async function handleCurrencyInput(e) {
+  if (
+    !fromAmountInput.value ||
+    !fromCurrencySelect.value ||
+    !toCurrencySelect.value
+  ) {
+    return;
+  }
+
+  const toAmount = await convertAmountForCurrencies(
+    fromAmountInput.value,
+    fromCurrencySelect.value,
+    toCurrencySelect.value
+  ).catch(err => console.log(err));
+
+  toAmountElem.textContent = formatCurrency(toCurrencySelect.value, toAmount);
+}
+
+conversionForm.addEventListener('input', handleCurrencyInput);
